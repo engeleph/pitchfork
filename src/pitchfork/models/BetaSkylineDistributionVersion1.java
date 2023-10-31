@@ -60,11 +60,65 @@ public class BetaSkylineDistributionVersion1 extends AbstractBetaSkylineDistribu
                     }
                     N = skylinePopulationsInput.get().getValue(group);
                 }
-                //logP += betaCoalescentModel.getLogLambda(n, k) - Math.log(N);
             }
         }
         return logP;
     }
 
+    @Override
+    protected boolean requiresRecalculation() {
+        return true;
+    }
 
+    @Override
+    double[] getPopSizes(int gridSize) {
+        double[] popSizes = new double[gridSize];
+        double T = tree.getRoot().getHeight();
+
+        int group = 0;
+        int seenCoalescentEvents = 0;
+        double N = skylinePopulationsInput.get().getValue(0);
+        int i = 0;
+        double t_total = 0;
+        int counter = 0;
+        int totalCoalecents = 0;
+        for (int j = 0; j < collapsedTreeIntervals.getIntervalCount(); j++) {
+            totalCoalecents += collapsedTreeIntervals.getCoalescentEvents(j);
+        }
+
+        for (int gridIdx = 0; gridIdx < gridSize; gridIdx++) {
+            double t = gridIdx * T / (gridSize - 1);
+            //int coalescent = 0;
+
+            // TODO: update N as needed
+            while((t_total+collapsedTreeIntervals.getInterval(i)) < t){
+
+                double dt = collapsedTreeIntervals.getInterval(i);
+
+                // Increment time
+                t_total += dt;
+
+                if (collapsedTreeIntervals.getIntervalType(i) == IntervalType.COALESCENT) {
+                    seenCoalescentEvents += collapsedTreeIntervals.getCoalescentEvents(i);
+                    counter += collapsedTreeIntervals.getCoalescentEvents(i);
+                    if (counter < totalCoalecents) {
+                        while (seenCoalescentEvents > groupSizesInput.get().getValue(group)) {    // > not >= because above N is for next round but not here
+                            seenCoalescentEvents -= groupSizesInput.get().getValue(group);
+                            group += 1;
+                        }
+                        N = skylinePopulationsInput.get().getValue(group);
+                    }
+                }
+
+                if (i == (collapsedTreeIntervals.getIntervalCount()-1)) {  //this if statement ends while loop when we reach the root of the tree
+                    break;
+                }
+                i++;
+            }
+
+            popSizes[gridIdx] = N;
+        }
+
+        return popSizes;
+    }
 }

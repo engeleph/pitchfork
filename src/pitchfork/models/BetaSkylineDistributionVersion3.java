@@ -25,6 +25,8 @@ import beast.base.inference.parameter.IntegerParameter;
 import beast.base.inference.parameter.RealParameter;
 import beast.base.util.Binomial;
 
+import java.math.BigDecimal;
+
 public class BetaSkylineDistributionVersion3 extends AbstractBetaSkylineDistribution {
 
     public BetaSkylineDistributionVersion3() {
@@ -36,12 +38,15 @@ public class BetaSkylineDistributionVersion3 extends AbstractBetaSkylineDistribu
     @Override
     public double calculateLogP() {
         logP = 0.0;
+        double T = tree.getRoot().getHeight();
+        //System.out.print("New line");
+        //System.out.print(T);
 
         double t = 0;
         double N = skylinePopulationsInput.get().getValue(0);
-        int seenCoalescentEvents = 0;
+        //int seenCoalescentEvents = 0;
         double dt_track = 0;                                        // this variable is first dt after every round and then t_update is deducted until dt_track < t_update
-        double t_update = 0.2;                                      //this variable defines the length of the time intervals. Can easily be implemented as beast Input
+        double t_update = T/populationSizes.getDimension();                                     //this variable defines the length of the time intervals
         int counter = 0;                                             // counter for groups
 
         for (int i = 0; i < collapsedTreeIntervals.getIntervalCount(); i++) {
@@ -50,19 +55,19 @@ public class BetaSkylineDistributionVersion3 extends AbstractBetaSkylineDistribu
             dt_track += dt;
 
             int n = collapsedTreeIntervals.getLineageCount(i);
+            t += dt;
+            //System.out.print(t + "\t");
 
-            while (dt_track >= t_update){
-                        logP += -betaCoalescentModel.getTotalCoalRate(n)*t_update/N;  // here we calculate the logP of the waiting time for the pre-defined interval t_update as long dt_track is bigger than t_update
-                        dt_track -= t_update;
-                        counter += 1;
-                        N = skylinePopulationsInput.get().getValue(counter);
+            while(dt_track > t_update && counter<skylinePopulationsInput.get().getDimension()-1 ){
+                logP += -betaCoalescentModel.getTotalCoalRate(n)*t_update/N;  // here we calculate the logP of the waiting time for the pre-defined interval t_update as long dt_track is bigger than t_update
+                dt_track -= t_update;
+                //if(dt_track>=2*t_update | t<T) {
+                counter += 1;
+                N = skylinePopulationsInput.get().getValue(counter);
+                //}
             }
 
-            logP += -betaCoalescentModel.getTotalCoalRate(n)*dt_track/N;      // here we calculate the logP for the time interval which is smaller than t_update
-
-
-            // Increment time
-            t += dt;
+            logP += -betaCoalescentModel.getTotalCoalRate(n)*dt_track/N;      // here we calculate the logP for the time interval which is smaller or equal than t_update
 
             if (collapsedTreeIntervals.getIntervalType(i) == IntervalType.COALESCENT) {
                 // Beta-coalescent event contribution
@@ -74,4 +79,52 @@ public class BetaSkylineDistributionVersion3 extends AbstractBetaSkylineDistribu
         return logP;
     }
 
+    @Override
+    protected boolean requiresRecalculation() {
+        return true;
+    }
+
+    @Override
+    double[] getPopSizes(int gridSize) {
+        double[] popSizes = new double[gridSize];
+        double T = tree.getRoot().getHeight();
+
+        int group = 0;
+        double N = skylinePopulationsInput.get().getValue(0);
+        int i = 0;
+        double t_total = 0;
+        double t_update = T/populationSizes.getDimension();
+        double dt_track = 0;
+
+        for (int gridIdx = 0; gridIdx < gridSize; gridIdx++) {
+            double t = gridIdx * T / (gridSize - 1);
+
+            // TODO: update N as needed
+            while((t_total+collapsedTreeIntervals.getInterval(i))<t){
+
+                double dt = collapsedTreeIntervals.getInterval(i);
+
+                // Increment time
+                t_total += dt;
+                dt_track += dt;
+                while(Math.round(dt_track*10000000000d)/10000000000d > Math.round(t_update*10000000000d)/10000000000d){
+                    dt_track -= t_update;
+                    //if(dt_track>=2*t_update | t_total<T) {
+                    group += 1;
+                    N = skylinePopulationsInput.get().getValue(group);
+                    //}
+                }
+
+                if (i == (collapsedTreeIntervals.getIntervalCount()-1)) {  //this if statement ends while loop when we reach the root of the tree
+                    break;
+                }
+                i++;
+
+            }
+
+            popSizes[gridIdx] = N;
+        }
+
+        return popSizes;
+    }
 }

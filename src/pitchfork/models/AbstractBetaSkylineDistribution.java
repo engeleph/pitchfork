@@ -25,7 +25,7 @@ import beast.base.inference.parameter.IntegerParameter;
 import beast.base.inference.parameter.RealParameter;
 import beast.base.util.Binomial;
 
-public class AbstractBetaSkylineDistribution extends TreeDistribution {
+public abstract class AbstractBetaSkylineDistribution extends TreeDistribution {
 
     public Input<CollapsedTreeIntervals> collapsedTreeIntervalsInput = new Input<>(
             "collapsedTreeIntervals",
@@ -76,5 +76,19 @@ public class AbstractBetaSkylineDistribution extends TreeDistribution {
         if (groupSizesSum != tree.getLeafNodeCount() - 1)
             throw new IllegalArgumentException("Sum of elements of groupSizes input should equal number of leaves - 1.");
     }
+
+    @Override
+    protected boolean requiresRecalculation() {
+        return true;
+    }
+
+    /**
+     * Return array of population sizes at evenly spaced time points.
+     * Used for logging.
+     *
+     * @param gridSize Size of grid on which to compute population size
+     * @return array of population sizes
+     */
+    abstract double[] getPopSizes(int gridSize);
 
 }

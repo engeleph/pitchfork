@@ -69,7 +69,7 @@ public class BetaSkylineDistributionVersion2 extends AbstractBetaSkylineDistribu
                 seenCoalescentEvents += 1;                    // independent of polytomy
                 counter += collapsedTreeIntervals.getCoalescentEvents(i);
 
-                if (counter < totalCoalecents) {           //because we don't want to update N after the last coalescent event
+                if (counter < totalCoalecents) {           //because we don't want to update N after the last coalescent event if there are only binary coalescent events
                     if (seenCoalescentEvents >= groupSizesInput.get().getValue(group)) {    //while loop is not necessary because we add seenCoalescentEvents + 1 even for polytomy and we can go at most one group further
                         seenCoalescentEvents -= groupSizesInput.get().getValue(group);
                         group += 1;
@@ -79,5 +79,63 @@ public class BetaSkylineDistributionVersion2 extends AbstractBetaSkylineDistribu
             }
         }
         return logP;
+    }
+    @Override
+    protected boolean requiresRecalculation() {
+        return true;
+    }
+
+    @Override
+    double[] getPopSizes(int gridSize) {
+        double[] popSizes = new double[gridSize];
+        double T = tree.getRoot().getHeight();
+
+        int group = 0;
+        int seenCoalescentEvents = 0;
+        double N = skylinePopulationsInput.get().getValue(0);
+        int i = 0;
+        double t_total = 0;
+        int counter = 0;
+        int totalCoalecents = 0;
+        for (int j = 0; j < collapsedTreeIntervals.getIntervalCount(); j++) {
+            totalCoalecents += collapsedTreeIntervals.getCoalescentEvents(j);
+        }
+
+        for (int gridIdx = 0; gridIdx < gridSize; gridIdx++) {
+            double t = gridIdx * T / (gridSize - 1);
+            //int coalescent = 0;
+
+            // TODO: update N as needed
+            while((t_total+collapsedTreeIntervals.getInterval(i)) < t){
+
+                double dt = collapsedTreeIntervals.getInterval(i);
+
+                // Increment time
+                t_total += dt;
+
+
+                if (collapsedTreeIntervals.getIntervalType(i) == IntervalType.COALESCENT) {
+                    seenCoalescentEvents += 1;
+                    counter += collapsedTreeIntervals.getCoalescentEvents(i);
+                    //System.out.println(groupSizesInput.get().getValue(group));
+                    if (counter < totalCoalecents) {
+                        if (seenCoalescentEvents >= groupSizesInput.get().getValue(group)) {
+                            seenCoalescentEvents -= groupSizesInput.get().getValue(group);
+                            group += 1;
+                        }
+                        N = skylinePopulationsInput.get().getValue(group);
+                    }
+                }
+
+                if (i == (collapsedTreeIntervals.getIntervalCount()-1)) {  //this if statement ends while loop when we reach the root of the tree
+                    break;
+                }
+                i++;
+            }
+
+             popSizes[gridIdx] = N;
+        }
+
+        return popSizes;
     }
 }

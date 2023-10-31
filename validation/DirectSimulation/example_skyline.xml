@@ -1,6 +1,6 @@
 <beast beautitemplate='Standard' beautistatus='' namespace="pitchfork.models.BetaSkylineDistribution:beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.base.evolution.alignment:beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood" required="BEAST.base v2.7.5" version="2.7">
 
-    <alignment id="simulated_alignment" spec='feast.fileio.AlignmentFromNexus' fileName="popFunction4/simulated_alignment.nexus"/>
+    <alignment id="simulated_alignment" spec='feast.fileio.AlignmentFromNexus' fileName="/home/philipp/Documents/MasterThesis/beast_and_friends/pitchfork/validation/DirectSimulation/$(input)/simulated_alignment.nexus"/>
 
     <map name="Uniform" >beast.base.inference.distribution.Uniform</map>
     <map name="Exponential" >beast.base.inference.distribution.Exponential</map>
@@ -16,10 +16,10 @@
     <run id="mcmc" spec="MCMC" chainLength="300000">
         <state id="state" spec="State" storeEvery="5000">
             <parameter id="bPopSizes.t:simulated_alignment" spec="parameter.RealParameter" dimension="59" lower="0" name="stateNode">1.0</parameter>
-            <stateNode id="bGroupSizes.t:simulated_alignment" spec="parameter.IntegerParameter" dimension="59">1</stateNode>
-            <!--        <parameter id="gammaShape.s:simulated_alignment" spec="parameter.RealParameter" lower="0.1" name="stateNode">1.0</parameter> -->
+            <parameter id="bGroupSizes.t:simulated_alignment" spec="parameter.IntegerParameter" dimension="59" lower="1" upper="1" name="stateNode">1</parameter>
+    <!--        <parameter id="gammaShape.s:simulated_alignment" spec="parameter.RealParameter" lower="0.1" name="stateNode">1.0</parameter> -->
             <parameter id="alpha:simulated_alignment" spec="parameter.RealParameter" lower="1" upper="2" name="stateNode">1.0</parameter>
-            <!--        <parameter id="clockRate.c:simulated_alignment" spec="parameter.RealParameter" estimate="false" lower="0.0" name="stateNode">7.9E-4</parameter> -->
+    <!--        <parameter id="clockRate.c:simulated_alignment" spec="parameter.RealParameter" estimate="false" lower="0.0" name="stateNode">7.9E-4</parameter> -->
 
             <tree id="Tree.t:simulated_alignment" spec="beast.base.evolution.tree.Tree" name="stateNode">
                 <taxonset id="taxonSet" spec="TaxonSet">
@@ -36,7 +36,7 @@
 
         <distribution spec="CompoundDistribution" id="posterior">
             <distribution id="prior" spec="CompoundDistribution">
-                <distribution id="BayesianSkyline.t:simulated_alignment" spec="pitchfork.models.BetaSkylineDistributionVersion1" groupSizes="@bGroupSizes.t:simulated_alignment" skylinePopulations="@bPopSizes.t:simulated_alignment">
+                <distribution id="BayesianSkyline.t:simulated_alignment" spec="pitchfork.models.BetaSkylineDistributionVersion$(version)" groupSizes="@bGroupSizes.t:simulated_alignment" skylinePopulations="@bPopSizes.t:simulated_alignment">
                     <model id="beta-model" spec="pitchfork.models.BetaCoalescentModel" taxonSet="@taxonSet" alpha="@alpha:simulated_alignment"/>
                     <collapsedTreeIntervals id="BSPTreeIntervals.t:simulated_alignment" spec="pitchfork.models.CollapsedTreeIntervals" tree="@Tree.t:simulated_alignment"/>
                 </distribution>
@@ -51,22 +51,22 @@
                         <taxonSet idref="taxonSet"/>
                     </model>
                 </distribution>
-                <!--            <distribution id="parameterPriors" spec="CompoundDistribution">
-                                <distribution spec="beast.base.inference.distribution.Prior" x="@alpha:simulated_alignment">
-                                    <distr spec="beast.base.inference.distribution.Uniform" lower="1" upper="2"/>
-                                </distribution>
-                            </distribution> -->
+    <!--            <distribution id="parameterPriors" spec="CompoundDistribution">
+                    <distribution spec="beast.base.inference.distribution.Prior" x="@alpha:simulated_alignment">
+                        <distr spec="beast.base.inference.distribution.Uniform" lower="1" upper="2"/>
+                    </distribution>
+                </distribution> -->
                 <distribution id="MarkovChainedPopSizes.t:simulated_alignment" spec="distribution.MarkovChainDistribution" jeffreys="true" parameter="@bPopSizes.t:simulated_alignment"/>
-                <!--        <prior id="GammaShapePrior.s:simulated_alignment" name="distribution" x="@gammaShape.s:simulated_alignment">
-                            <Exponential id="Exponential.0" name="distr">
-                                <parameter id="RealParameter.0" spec="parameter.RealParameter" estimate="false" name="mean">1.0</parameter>
-                            </Exponential>
-                        </prior> -->
+        <!--        <prior id="GammaShapePrior.s:simulated_alignment" name="distribution" x="@gammaShape.s:simulated_alignment">
+                    <Exponential id="Exponential.0" name="distr">
+                        <parameter id="RealParameter.0" spec="parameter.RealParameter" estimate="false" name="mean">1.0</parameter>
+                    </Exponential>
+                </prior> -->
             </distribution>
             <distribution id="likelihood" spec="CompoundDistribution" useThreads="true">
                 <distribution id="treeLikelihood.simulated_alignment" spec="ThreadedTreeLikelihood" data="@simulated_alignment" tree="@Tree.t:simulated_alignment"> <!-- branchRateModel="@clockRate.c:simulated_alignment"> -->
                     <siteModel id="SiteModel.s:simulated_alignment" spec="SiteModel" mutationRate="0.005">
-                        <!--            <parameter id="proportionInvariant.s:simulated_alignment" spec="parameter.RealParameter" estimate="false" lower="0.0" name="proportionInvariant" upper="1.0">0.0</parameter> -->
+            <!--            <parameter id="proportionInvariant.s:simulated_alignment" spec="parameter.RealParameter" estimate="false" lower="0.0" name="proportionInvariant" upper="1.0">0.0</parameter> -->
                         <substModel id="JC69.s:simulated_alignment" spec="JukesCantor"/>
                     </siteModel>
                 </distribution>
@@ -99,41 +99,41 @@
         <operator id="groupSizesDelta.t:simulated_alignment" spec="operator.kernel.BactrianDeltaExchangeOperator" integer="true" weight="6.0">
             <intparameter idref="bGroupSizes.t:simulated_alignment"/>
         </operator>
-        <!--      <operator id="gammaShapeScaler.s:simulated_alignment" spec="AdaptableOperatorSampler" weight="0.05">
-                  <parameter idref="gammaShape.s:simulated_alignment"/>
-                  <operator id="AVMNOperator.simulated_alignment" spec="kernel.AdaptableVarianceMultivariateNormalOperator" allowNonsense="true" beta="0.05" burnin="400" initial="800" weight="0.1">
-                      <transformations id="AVMNSumTransform.simulated_alignment" spec="operator.kernel.Transform$LogConstrainedSumTransform"/>
-                      <transformations id="AVMNLogTransform.simulated_alignment" spec="operator.kernel.Transform$LogTransform">
-                          <f idref="gammaShape.s:simulated_alignment"/>
-                      </transformations>
-                      <transformations id="AVMNNoTransform.simulated_alignment" spec="operator.kernel.Transform$NoTransform">
-                          <f idref="Tree.t:simulated_alignment"/>
-                      </transformations>
-                  </operator>
-                  <operator id="gammaShapeScalerX.s:simulated_alignment" spec="kernel.BactrianScaleOperator" parameter="@gammaShape.s:simulated_alignment" scaleFactor="0.5" upper="10.0" weight="0.1"/>
-              </operator> -->
+  <!--      <operator id="gammaShapeScaler.s:simulated_alignment" spec="AdaptableOperatorSampler" weight="0.05">
+            <parameter idref="gammaShape.s:simulated_alignment"/>
+            <operator id="AVMNOperator.simulated_alignment" spec="kernel.AdaptableVarianceMultivariateNormalOperator" allowNonsense="true" beta="0.05" burnin="400" initial="800" weight="0.1">
+                <transformations id="AVMNSumTransform.simulated_alignment" spec="operator.kernel.Transform$LogConstrainedSumTransform"/>
+                <transformations id="AVMNLogTransform.simulated_alignment" spec="operator.kernel.Transform$LogTransform">
+                    <f idref="gammaShape.s:simulated_alignment"/>
+                </transformations>
+                <transformations id="AVMNNoTransform.simulated_alignment" spec="operator.kernel.Transform$NoTransform">
+                    <f idref="Tree.t:simulated_alignment"/>
+                </transformations>
+            </operator>
+            <operator id="gammaShapeScalerX.s:simulated_alignment" spec="kernel.BactrianScaleOperator" parameter="@gammaShape.s:simulated_alignment" scaleFactor="0.5" upper="10.0" weight="0.1"/>
+        </operator> -->
 
-        <logger id="tracelog" spec="Logger" fileName="$(filebase).log" logEvery="2000" model="@posterior" sanitiseHeaders="true" sort="smart">
+        <logger id="tracelog" spec="Logger" fileName="$(outputDir)/example_skyline_function_$(popFunction).log" logEvery="2000" model="@posterior" sanitiseHeaders="true" sort="smart">
             <log idref="posterior"/>
             <log idref="likelihood"/>
             <log idref="prior"/>
             <log idref="alpha:simulated_alignment"/>
             <log spec="pitchfork.util.PolytomyStatsLogger" tree="@Tree.t:simulated_alignment" maxOrder="5"/>
             <log idref="treeLikelihood.simulated_alignment"/>
-            <!--        <log idref="treePrior"/> -->
+    <!--        <log idref="treePrior"/> -->
             <log id="TreeHeight.t:simulated_alignment" spec="beast.base.evolution.tree.TreeStatLogger" tree="@Tree.t:simulated_alignment"/>
             <log idref="BayesianSkyline.t:simulated_alignment"/>
-            <!--        <log idref="bPopSizes.t:simulated_alignment"/>
-                    <log idref="bGroupSizes.t:simulated_alignment"/> -->
-            <log spec="pitchfork.models.BetaSkylineLogger" skylineDistribution="@BayesianSkyline.t:simulated_alignment" gridSize="51"/>
-            <!--        <log idref="gammaShape.s:simulated_alignment"/> -->
+    <!--        <log idref="bPopSizes.t:simulated_alignment"/> -->
+    <!--        <log idref="bGroupSizes.t:simulated_alignment"/> -->
+            <log spec="pitchfork.models.BetaSkylineLogger" skylineDistribution="@BayesianSkyline.t:simulated_alignment" gridSize="101"/>
+    <!--        <log idref="gammaShape.s:simulated_alignment"/> -->
         </logger>
         <logger id="screenlog" spec="Logger" logEvery="1000">
             <log idref="posterior"/>
             <log idref="likelihood"/>
             <log idref="prior"/>
         </logger>
-        <logger id="treelog.t:simulated_alignment" spec="Logger" fileName="$(filebase).trees" logEvery="2000" mode="tree">
+        <logger id="treelog.t:simulated_alignment" spec="Logger" fileName="$(outputDir)/example_skyline_function_$(popFunction).trees" logEvery="2000" mode="tree">
             <log id="TreeWithMetaDataLogger.t:simulated_alignment" spec="beast.base.evolution.TreeWithMetaDataLogger" tree="@Tree.t:simulated_alignment"/>
         </logger>
     </run>

@@ -17,7 +17,7 @@ public class BetaSkylineDistributionTest extends PitchforkTestClass {
         CollapsedTreeIntervals treeIntervals = new CollapsedTreeIntervals();
         treeIntervals.initByName("tree", tree);
 
-        AbstractBetaSkylineDistribution distribution = new AbstractBetaSkylineDistribution();
+        BetaSkylineDistributionVersion3 distribution = new BetaSkylineDistributionVersion3();
         distribution.initByName("model", bcModel,
                 "collapsedTreeIntervals", treeIntervals,
                 "groupSizes", new IntegerParameter("1 1 1"), //to do check total size
@@ -40,7 +40,7 @@ public class BetaSkylineDistributionTest extends PitchforkTestClass {
         CollapsedTreeIntervals treeIntervals = new CollapsedTreeIntervals();
         treeIntervals.initByName("tree", tree);
 
-        AbstractBetaSkylineDistribution distribution = new AbstractBetaSkylineDistribution();
+        BetaSkylineDistributionVersion1 distribution = new BetaSkylineDistributionVersion1();
         distribution.initByName("model", bcModel,
                 "collapsedTreeIntervals", treeIntervals,
                 "groupSizes", new IntegerParameter("1 1 1 1 1 1 1 1"), //to do check total size of 8
