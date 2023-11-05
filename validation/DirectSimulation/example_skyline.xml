@@ -13,7 +13,7 @@
     <map name="InverseGamma" >beast.base.inference.distribution.InverseGamma</map>
     <map name="OneOnX" >beast.base.inference.distribution.OneOnX</map>
 
-    <run id="mcmc" spec="MCMC" chainLength="300000">
+    <run id="mcmc" spec="MCMC" chainLength="10000000">
         <state id="state" spec="State" storeEvery="5000">
             <parameter id="bPopSizes.t:simulated_alignment" spec="parameter.RealParameter" dimension="59" lower="0" name="stateNode">1.0</parameter>
             <parameter id="bGroupSizes.t:simulated_alignment" spec="parameter.IntegerParameter" dimension="59" lower="1" upper="1" name="stateNode">1</parameter>
@@ -94,8 +94,8 @@
         <operator id="BayesianSkylineWilsonBalding.t:simulated_alignment" spec="WilsonBalding" tree="@Tree.t:simulated_alignment" weight="3.0"/>
         -->
 
-        <operator id="popSizesScaler.t:simulated_alignment" spec="kernel.BactrianScaleOperator" parameter="@bPopSizes.t:simulated_alignment" upper="10.0" weight="15.0"/>
-        <operator id="alphaScaler:simulated_alignment" spec="kernel.BactrianScaleOperator" parameter="@alpha:simulated_alignment" upper="1.999" weight="6.0"/>
+        <operator id="popSizesScaler.t:simulated_alignment" spec="kernel.BactrianScaleOperator" parameter="@bPopSizes.t:simulated_alignment" weight="15.0"/>
+        <operator id="alphaScaler:simulated_alignment" spec="kernel.BactrianScaleOperator" parameter="@alpha:simulated_alignment" scaleFactor="0.9" weight="6.0"/>
         <operator id="groupSizesDelta.t:simulated_alignment" spec="operator.kernel.BactrianDeltaExchangeOperator" integer="true" weight="6.0">
             <intparameter idref="bGroupSizes.t:simulated_alignment"/>
         </operator>
@@ -113,7 +113,7 @@
             <operator id="gammaShapeScalerX.s:simulated_alignment" spec="kernel.BactrianScaleOperator" parameter="@gammaShape.s:simulated_alignment" scaleFactor="0.5" upper="10.0" weight="0.1"/>
         </operator> -->
 
-        <logger id="tracelog" spec="Logger" fileName="$(outputDir)/example_skyline_function_$(popFunction).log" logEvery="2000" model="@posterior" sanitiseHeaders="true" sort="smart">
+        <logger id="tracelog" spec="Logger" fileName="$(outputDir)/example_skyline_function_$(popFunction).log" logEvery="10000" model="@posterior" sanitiseHeaders="true" sort="smart">
             <log idref="posterior"/>
             <log idref="likelihood"/>
             <log idref="prior"/>
@@ -128,7 +128,7 @@
             <log spec="pitchfork.models.BetaSkylineLogger" skylineDistribution="@BayesianSkyline.t:simulated_alignment" gridSize="101"/>
     <!--        <log idref="gammaShape.s:simulated_alignment"/> -->
         </logger>
-        <logger id="screenlog" spec="Logger" logEvery="1000">
+        <logger id="screenlog" spec="Logger" logEvery="10000">
             <log idref="posterior"/>
             <log idref="likelihood"/>
             <log idref="prior"/>

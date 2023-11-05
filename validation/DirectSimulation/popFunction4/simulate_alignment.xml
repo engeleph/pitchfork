@@ -16,12 +16,12 @@
 
     <tree id="simulated_tree" spec="SimulatedBetaCoalescentTree">
         <model spec="BetaCoalescentModel">
-            <alpha spec="RealParameter" value="1.5"/>
+            <alpha spec="RealParameter" value="$(RealAlpha)"/>
             <taxonSet idref="taxonSet"/>
         </model>
 
         <populationFunction spec="beast.base.evolution.tree.coalescent.ExponentialGrowth">
-            <popSize spec="RealParameter" value="100.0"/>
+            <popSize spec="RealParameter" value="2.0"/>
             <growthRate spec="RealParameter" value="0.8"/>
         </populationFunction>
 

@@ -1,0 +1,33 @@
+<beast beautitemplate='Standard' beautistatus='' namespace="pitchfork.models.BetaSkylineDistribution:beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.base.evolution.alignment:beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood" required="BEAST.base v2.7.5" version="2.7">
+
+    <alignment id="simulated_alignment" spec='feast.fileio.AlignmentFromNexus' fileName="/home/philipp/Documents/MasterThesis/beast_and_friends/pitchfork/validation/DirectSimulation/popFunction1/Realisation1/simulated_alignment.nexus"/>
+    <tree id="tree" spec='feast.fileio.TreeFromNexusFile' fileName="/home/philipp/Documents/MasterThesis/beast_and_friends/pitchfork/validation/DirectSimulation/popFunction1/Realisation6/simulated_tree.nexus"/>
+
+
+    <run spec="feast.mapping.DensityMapper">
+    <!--    <distribution id="likelihood" spec="CompoundDistribution" useThreads="true">
+            <distribution id="treeLikelihood.simulated_alignment" spec="ThreadedTreeLikelihood" data="@simulated_alignment" tree="@tree">
+                <siteModel id="SiteModel.s:simulated_alignment" spec="SiteModel" mutationRate="0.005">
+                    <substModel id="JC69.s:simulated_alignment" spec="JukesCantor"/>
+                </siteModel>
+            </distribution>
+        </distribution> -->
+        <realParam spec="beast.base.inference.parameter.RealParameter" id="alpha"
+                   value="1.5" lower="1" upper="2"/>
+        <steps spec="beast.base.inference.parameter.IntegerParameter"
+               value="1"/>
+
+        <distribution id="BayesianSkyline.t:simulated_alignment" spec="pitchfork.models.BetaSkylineDistributionVersion1" >
+            <model id="beta-model" spec="pitchfork.models.BetaCoalescentModel" taxonSet="@taxonSet" alpha="@alpha"/>
+            <collapsedTreeIntervals id="BSPTreeIntervals.t:simulated_alignment" spec="pitchfork.models.CollapsedTreeIntervals" tree="@tree"/>
+            <skylinePopulations id="bPopSizes.t:simulated_alignment" spec="parameter.RealParameter" dimension="59" lower="1" upper="1" name="stateNode"> </skylinePopulations>
+            <groupSizes id="bGroupSizes.t:simulated_alignment" spec="parameter.IntegerParameter" dimension="59" lower="1" upper="1" name="stateNode"> </groupSizes>
+        </distribution>
+
+        <logger spec="Logger" logEvery="1">
+            <log idref="alpha"/>
+            <log idref="likelihood"/>
+        </logger>
+
+    </run>
+</beast>

@@ -16,12 +16,12 @@
 
     <tree id="simulated_tree" spec="SimulatedBetaCoalescentTree">
         <model spec="BetaCoalescentModel">
-            <alpha spec="RealParameter" value="1.5"/>
+            <alpha spec="RealParameter" value="$(RealAlpha)"/>
             <taxonSet idref="taxonSet"/>
         </model>
 
         <populationFunction spec="ConstantPopulation">
-            <popSize spec="RealParameter" value="100.0"/>
+            <popSize spec="RealParameter" value="1.0"/>
         </populationFunction>
 
         <trait spec="TraitSet" traitname="date-backward" id="traitSet">
