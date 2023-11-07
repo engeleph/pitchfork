@@ -15,8 +15,8 @@
 
     <run id="mcmc" spec="MCMC" chainLength="10000000">
         <state id="state" spec="State" storeEvery="5000">
-            <parameter id="bPopSizes.t:simulated_alignment" spec="parameter.RealParameter" dimension="59" lower="0" name="stateNode">1.0</parameter>
-            <parameter id="bGroupSizes.t:simulated_alignment" spec="parameter.IntegerParameter" dimension="59" lower="1" upper="1" name="stateNode">1</parameter>
+            <parameter id="bPopSizes.t:simulated_alignment" spec="parameter.RealParameter" dimension="10" lower="0" name="stateNode">1.0</parameter>
+            <parameter id="bGroupSizes.t:simulated_alignment" spec="parameter.IntegerParameter" dimension="10" lower="1" name="stateNode">1</parameter>
     <!--        <parameter id="gammaShape.s:simulated_alignment" spec="parameter.RealParameter" lower="0.1" name="stateNode">1.0</parameter> -->
             <parameter id="alpha:simulated_alignment" spec="parameter.RealParameter" lower="1" upper="2" name="stateNode">1.0</parameter>
     <!--        <parameter id="clockRate.c:simulated_alignment" spec="parameter.RealParameter" estimate="false" lower="0.0" name="stateNode">7.9E-4</parameter> -->
@@ -39,17 +39,6 @@
                 <distribution id="BayesianSkyline.t:simulated_alignment" spec="pitchfork.models.BetaSkylineDistributionVersion$(version)" groupSizes="@bGroupSizes.t:simulated_alignment" skylinePopulations="@bPopSizes.t:simulated_alignment">
                     <model id="beta-model" spec="pitchfork.models.BetaCoalescentModel" taxonSet="@taxonSet" alpha="@alpha:simulated_alignment"/>
                     <collapsedTreeIntervals id="BSPTreeIntervals.t:simulated_alignment" spec="pitchfork.models.CollapsedTreeIntervals" tree="@Tree.t:simulated_alignment"/>
-                </distribution>
-                <distribution id="treePrior" spec="pitchfork.models.BetaCoalescentDistribution">
-                    <collapsedTreeIntervals spec="pitchfork.models.CollapsedTreeIntervals" tree="@Tree.t:simulated_alignment"/>
-
-                    <populationFunction spec="ConstantPopulation">
-                        <popSize spec="beast.base.inference.parameter.RealParameter" value="1.0"/>
-                    </populationFunction>
-
-                    <model spec="pitchfork.models.BetaCoalescentModel" alpha="@alpha:simulated_alignment">
-                        <taxonSet idref="taxonSet"/>
-                    </model>
                 </distribution>
     <!--            <distribution id="parameterPriors" spec="CompoundDistribution">
                     <distribution spec="beast.base.inference.distribution.Prior" x="@alpha:simulated_alignment">
