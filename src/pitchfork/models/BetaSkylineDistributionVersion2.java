@@ -119,7 +119,7 @@ public class BetaSkylineDistributionVersion2 extends AbstractBetaSkylineDistribu
                     counter += collapsedTreeIntervals.getCoalescentEvents(i);
                     //System.out.println(groupSizesInput.get().getValue(group));
                     if (counter < totalCoalecents) {
-                        if (seenCoalescentEvents >= groupSizesInput.get().getValue(group)) {
+                        if (seenCoalescentEvents > groupSizesInput.get().getValue(group)) {
                             seenCoalescentEvents -= groupSizesInput.get().getValue(group);
                             group += 1;
                         }
