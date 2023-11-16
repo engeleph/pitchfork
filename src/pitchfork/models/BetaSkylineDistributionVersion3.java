@@ -59,8 +59,8 @@ public class BetaSkylineDistributionVersion3 extends AbstractBetaSkylineDistribu
             t += dt;
             //System.out.print(t + "\t");
 
-            while(dt_track > t_update && counter < skylinePopulationsInput.get().getDimension()-1 ){
-                logP += Math.log(betaCoalescentModel.getTotalCoalRate(n))-betaCoalescentModel.getTotalCoalRate(n)*(t_update-t_rest)/N;  // here we calculate the logP of the waiting time for the pre-defined interval t_update as long dt_track is bigger than t_update
+            while(dt_track >= t_update && counter < skylinePopulationsInput.get().getDimension()-1 ){
+                logP += -betaCoalescentModel.getTotalCoalRate(n)*(t_update-t_rest)/N;  // here we calculate the logP of the waiting time for the pre-defined interval t_update as long dt_track is bigger than t_update
                 dt_track -= t_update;   // in the first round of the while loop we need to update ealier because there is still some dt_track to deduct from the last round
                 t_rest = 0;           //now t_rest should be set to 0 again
                 //if(dt_track>=2*t_update | t<T) {
@@ -76,7 +76,7 @@ public class BetaSkylineDistributionVersion3 extends AbstractBetaSkylineDistribu
                 // Beta-coalescent event contribution
 
                 int k = collapsedTreeIntervals.getCoalescentEvents(i)+1;
-                logP += betaCoalescentModel.getLogLambda(n, k) + Binomial.logChoose(n, k) - Math.log(N) - Math.log(betaCoalescentModel.getTotalCoalRate(n));
+                logP += betaCoalescentModel.getLogLambda(n, k) + Binomial.logChoose(n, k) - Math.log(N);
             }
         }
         return logP;
