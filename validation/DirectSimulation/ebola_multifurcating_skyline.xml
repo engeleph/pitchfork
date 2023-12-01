@@ -1,0 +1,141 @@
+<beast beautitemplate='Standard' beautistatus='' namespace="pitchfork.models.BetaSkylineDistribution:beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.base.evolution.alignment:beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood" required="BEAST.base v2.7.5" version="2.7">
+
+    <alignment id="Kailahun" spec='feast.fileio.AlignmentFromFasta' fileName="home/philipp/Documents/MasterThesis/Ebola_testset/SLE_Kailahun_sequences.fasta"/>
+    <taxonset id="taxonSet" spec="TaxonSet"> <alignment idref="Kailahun"/> </taxonset>
+
+    <map name="Uniform" >beast.base.inference.distribution.Uniform</map>
+    <map name="Exponential" >beast.base.inference.distribution.Exponential</map>
+    <map name="LogNormal" >beast.base.inference.distribution.LogNormalDistributionModel</map>
+    <map name="Normal" >beast.base.inference.distribution.Normal</map>
+    <map name="Beta" >beast.base.inference.distribution.Beta</map>
+    <map name="Gamma" >beast.base.inference.distribution.Gamma</map>
+    <map name="LaplaceDistribution" >beast.base.inference.distribution.LaplaceDistribution</map>
+    <map name="prior" >beast.base.inference.distribution.Prior</map>
+    <map name="InverseGamma" >beast.base.inference.distribution.InverseGamma</map>
+    <map name="OneOnX" >beast.base.inference.distribution.OneOnX</map>
+
+    <run id="mcmc" spec="MCMC" chainLength="1000000">
+        <state id="state" spec="State" storeEvery="5000">
+            <parameter id="bPopSizes" spec="parameter.RealParameter" dimension="5" lower="0.0000001" name="stateNode">1.0</parameter>
+            <parameter id="bGroupSizes" spec="parameter.IntegerParameter" dimension="5" lower="1" name="stateNode">20</parameter>
+            <parameter id="gammaShape" spec="parameter.RealParameter" lower="0.1" name="stateNode">1.0</parameter>
+            <parameter id="alpha" spec="parameter.RealParameter" lower="1.8" upper="1.8" name="stateNode">1.8</parameter>
+            <parameter id="clockRate" spec="parameter.RealParameter" estimate="false" lower="0.0" name="stateNode">7.9E-4</parameter>
+            <parameter id="kappa" lower="0.0" name="stateNode">2.0</parameter>
+            <parameter id="freqParameter.s:Kailahun" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
+            <tree id="Tree" name="stateNode">
+                <trait id="dateTrait" spec="beast.base.evolution.tree.TraitSet" dateFormat="yyyy-M-dd" traitname="date" value="EBOV|20140161|KR653265|SLE|Kailahun|2014-08-27=2014-08-27,EBOV|20140517|KR653263|SLE|Kailahun|2014-09-05=2014-09-05,EBOV|EM_079983|KR817227|SLE|Kailahun|2014-06-13=2014-06-13,EBOV|EM_080003|KR817228|SLE|Kailahun|2014-06-14=2014-06-14,EBOV|EM_080011|KR817229|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|EM_080132|KR817236|SLE|Kailahun|2014-06-24=2014-06-24,EBOV|EM_080165|KR817238|SLE|Kailahun|2014-06-26=2014-06-26,EBOV|EM_080265|KR817244|SLE|Kailahun|2014-07-12=2014-07-12,EBOV|EM095|KM034550|SLE|Kailahun|2014-05-25=2014-05-25,EBOV|EM096|KM034551|SLE|Kailahun|2014-05-26=2014-05-26,EBOV|EM098|KM034552|SLE|Kailahun|2014-05-26=2014-05-26,EBOV|EM104|KM233035|SLE|Kailahun|2014-06-02=2014-06-02,EBOV|EM106|KM233036|SLE|Kailahun|2014-06-02=2014-06-02,EBOV|EM110|KM233037|SLE|Kailahun|2014-06-03=2014-06-03,EBOV|EM111|KM233038|SLE|Kailahun|2014-06-03=2014-06-03,EBOV|EM112|KM233039|SLE|Kailahun|2014-06-03=2014-06-03,EBOV|EM113|KM233040|SLE|Kailahun|2014-06-03=2014-06-03,EBOV|EM115|KM233041|SLE|Kailahun|2014-06-03=2014-06-03,EBOV|EM119|KM233042|SLE|Kailahun|2014-06-03=2014-06-03,EBOV|EM120|KM233043|SLE|Kailahun|2014-06-03=2014-06-03,EBOV|EM121|KM233044|SLE|Kailahun|2014-06-04=2014-06-04,EBOV|EM124|KM233045|SLE|Kailahun|2014-06-04=2014-06-04,EBOV|G3670|KM034553|SLE|Kailahun|2014-05-27=2014-05-27,EBOV|G3676|KM034554|SLE|Kailahun|2014-05-27=2014-05-27,EBOV|G3677|KM034556|SLE|Kailahun|2014-05-26=2014-05-26,EBOV|G3679|KM034558|SLE|Kailahun|2014-05-28=2014-05-28,EBOV|G3680|KM034559|SLE|Kailahun|2014-05-28=2014-05-28,EBOV|G3682|KM034560|SLE|Kailahun|2014-05-28=2014-05-28,EBOV|G3683|KM034561|SLE|Kailahun|2014-05-28=2014-05-28,EBOV|G3686|KM034562|SLE|Kailahun|2014-05-28=2014-05-28,EBOV|G3687|KM034563|SLE|Kailahun|2014-05-28=2014-05-28,EBOV|G3707|KM233049|SLE|Kailahun|2014-05-31=2014-05-31,EBOV|G3713|KM233050|SLE|Kailahun|2014-06-09=2014-06-09,EBOV|G3724|KM233053|SLE|Kailahun|2014-06-05=2014-06-05,EBOV|G3729|KM233054|SLE|Kailahun|2014-06-07=2014-06-07,EBOV|G3734|KM233055|SLE|Kailahun|2014-06-07=2014-06-07,EBOV|G3735|KM233056|SLE|Kailahun|2014-06-07=2014-06-07,EBOV|G3750|KM233058|SLE|Kailahun|2014-06-10=2014-06-10,EBOV|G3752|KM233061|SLE|Kailahun|2014-06-10=2014-06-10,EBOV|G3758|KM233062|SLE|Kailahun|2014-06-11=2014-06-11,EBOV|G3765|KM233064|SLE|Kailahun|2014-06-14=2014-06-14,EBOV|G3769|KM233065|SLE|Kailahun|2014-06-12=2014-06-12,EBOV|G3770|KM233069|SLE|Kailahun|2014-06-12=2014-06-12,EBOV|G3771|KM233071|SLE|Kailahun|2014-06-12=2014-06-12,EBOV|G3782|KM233072|SLE|Kailahun|2014-06-14=2014-06-14,EBOV|G3786|KM233073|SLE|Kailahun|2014-06-14=2014-06-14,EBOV|G3787|KM233074|SLE|Kailahun|2014-06-14=2014-06-14,EBOV|G3788|KM233075|SLE|Kailahun|2014-06-14=2014-06-14,EBOV|G3789|KM233076|SLE|Kailahun|2014-06-14=2014-06-14,EBOV|G3795|KM233077|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3796|KM233078|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3798|KM233079|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3799|KM233080|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3800|KM233081|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3805|KM233082|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3807|KM233084|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3808|KM233085|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3809|KM233086|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3810|KM233087|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3814|KM233089|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3816|KM233090|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3817|KM233091|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3818|KM233092|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3819|KM233093|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3820|KM233094|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3821|KM233095|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3822|KM233096|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3823|KM233097|SLE|Kailahun|2014-06-15=2014-06-15,EBOV|G3825|KM233098|SLE|Kailahun|2014-06-16=2014-06-16,EBOV|G3826|KM233100|SLE|Kailahun|2014-06-16=2014-06-16,EBOV|G3827|KM233101|SLE|Kailahun|2014-06-16=2014-06-16,EBOV|G3829|KM233102|SLE|Kailahun|2014-06-16=2014-06-16,EBOV|G3831|KM233103|SLE|Kailahun|2014-06-16=2014-06-16,EBOV|G3834|KM233104|SLE|Kailahun|2014-06-17=2014-06-17,EBOV|G3838|KM233105|SLE|Kailahun|2014-06-17=2014-06-17,EBOV|G3840|KM233106|SLE|Kailahun|2014-06-17=2014-06-17,EBOV|G3845|KM233108|SLE|Kailahun|2014-06-18=2014-06-18,EBOV|G3846|KM233109|SLE|Kailahun|2014-06-18=2014-06-18,EBOV|G3848|KM233110|SLE|Kailahun|2014-06-18=2014-06-18,EBOV|G3850|KM233111|SLE|Kailahun|2014-06-18=2014-06-18,EBOV|G3857|KM233115|SLE|Kailahun|2014-06-18=2014-06-18,EBOV|G3838.2|KR105200|SLE|Kailahun|2014-06-16=2014-06-16,EBOV|G3926.2|KR105208|SLE|Kailahun|2014-06-22=2014-06-22,EBOV|G3952.1|KR105211|SLE|Kailahun|2014-06-25=2014-06-25,EBOV|G4133.1|KR105214|SLE|Kailahun|2014-07-04=2014-07-04,EBOV|G4190.1|KR105216|SLE|Kailahun|2014-07-07=2014-07-07,EBOV|G4235.1|KR105220|SLE|Kailahun|2014-07-11=2014-07-11,EBOV|G4236.1|KR105221|SLE|Kailahun|2014-07-10=2014-07-10,EBOV|G4250.1|KR105222|SLE|Kailahun|2014-07-11=2014-07-11,EBOV|G4251.1|KR105223|SLE|Kailahun|2014-07-11=2014-07-11,EBOV|G4252.1|KR105224|SLE|Kailahun|2014-07-11=2014-07-11,EBOV|G4254.1|KR105225|SLE|Kailahun|2014-07-11=2014-07-11,EBOV|G4255.1|KR105226|SLE|Kailahun|2014-07-11=2014-07-11,EBOV|G4299.1|KR105229|SLE|Kailahun|2014-07-12=2014-07-12,EBOV|G4329.1|KR105235|SLE|Kailahun|2014-07-14=2014-07-14,EBOV|G4333.1|KR105236|SLE|Kailahun|2014-07-13=2014-07-13,EBOV|G4337.1|KR105238|SLE|Kailahun|2014-07-14=2014-07-14,EBOV|G4423.1|KR105251|SLE|Kailahun|2014-07-19=2014-07-19,EBOV|G4424.1|KR105252|SLE|Kailahun|2014-07-19=2014-07-19,EBOV|G4433.1|KR105254|SLE|Kailahun|2014-07-20=2014-07-20,EBOV|G4454.1|KR105258|SLE|Kailahun|2014-07-21=2014-07-21">
+                    <taxa id="TaxonSet" spec="TaxonSet">
+                        <alignment idref="Kailahun"/>
+                    </taxa>
+                </trait>
+                <taxonset idref="TaxonSet"/>
+            </tree>
+    <!--        <tree id="Tree" spec="beast.base.evolution.tree.Tree" name="stateNode">
+                <taxonset id="taxonSet" spec="TaxonSet">
+                    <alignment idref="simulated_alignment"/>
+                </taxonset>
+            </tree>   -->
+        </state>
+
+        <init id="RandomTree" spec="RandomTree" estimate="false" initial="@Tree" taxa="@Kailahun">
+            <populationModel id="ConstantPopulation0" spec="ConstantPopulation">
+                <parameter id="randomPopSize" spec="parameter.RealParameter" name="popSize">1.0</parameter>
+            </populationModel>
+        </init>
+        <distribution spec="CompoundDistribution" id="posterior">
+            <distribution id="prior" spec="CompoundDistribution">
+                <distribution id="BayesianSkyline" spec="pitchfork.models.BetaSkylineDistributionVersion1" groupSizes="@bGroupSizes" skylinePopulations="@bPopSizes">
+                    <model id="beta-model" spec="pitchfork.models.BetaCoalescentModel" taxonSet="@taxonSet" alpha="@alpha"/>
+                    <collapsedTreeIntervals id="BSPTreeIntervals" spec="pitchfork.models.CollapsedTreeIntervals" tree="@Tree"/>
+                </distribution>
+                <distribution id="MarkovChainedPopSizes" spec="distribution.MarkovChainDistribution" jeffreys="true" parameter="@bPopSizes" shape="0.5"/>
+                <prior id="GammaShapePrior" name="distribution" x="@gammaShape">
+                    <distr id="Exponential.0" spec="beast.base.inference.distribution.Exponential">
+                        <parameter id="RealParameter.0" spec="parameter.RealParameter" estimate="false" name="mean">1.0</parameter>
+                    </distr>
+                </prior>
+                <distribution id="ClockPrior" x="@clockRate">
+                    <distr id="Uniform.0" spec="beast.base.inference.distribution.Uniform" lower="0" upper="1"/>
+                </distribution>
+                <distribution id="KappaPrior" x="@kappa">
+                    <distr id="LogNormalDistributionModel.0" spec="beast.base.inference.distribution.LogNormal">
+                        <parameter id="RealParameter.1" estimate="false" name="M">1.0</parameter>
+                        <parameter id="RealParameter.2" estimate="false" name="S">1.25</parameter>
+                    </distr>
+                </distribution>
+                <distribution id="PopSizePrior" x="@bPopSizes">
+                    <distr id="OneOnX.1" spec="beast.base.inference.distribution.OneOnX"/>
+                </distribution>
+
+                <distribution spec="beast.base.inference.distribution.Prior" x="@alpha">
+                    <distr spec="beast.base.inference.distribution.Uniform" lower="1" upper="2"/>
+                </distribution>
+            </distribution>
+            <distribution id="likelihood" spec="CompoundDistribution" useThreads="true">
+                <distribution id="treeLikelihood" spec="ThreadedTreeLikelihood" data="@Kailahun" tree="@Tree">
+                    <siteModel id="SiteModel" spec="SiteModel" shape="@gammaShape">
+                        <parameter id="mutationRate" estimate="false" name="mutationRate">1.0</parameter>
+                        <parameter id="proportionInvariant" estimate="false" lower="0.0" name="proportionInvariant" upper="1.0">0.0</parameter>
+                        <substModel id="hky" spec="HKY" kappa="@kappa">
+                            <frequencies id="estimatedFreqs" spec="Frequencies" frequencies="@freqParameter"/>
+                        </substModel>
+                    </siteModel>
+                    <branchRateModel id="StrictClock" spec="beast.evolution.branchratemodel.StrictClockModel" clock.rate="@clockRate"/>
+                </distribution>
+            </distribution>
+        </distribution>
+
+        <operator id="Operator1" spec="pitchfork.operators.ScaleOperator" scaleFactor="0.5" tree="@Tree" weight="10.0"/>
+        <operator id="Operator2" spec="pitchfork.operators.ScaleOperator" rootOnly="true" scaleFactor="0.5" tree="@Tree" weight="1.0"/>
+        <operator id="Operator3" spec="pitchfork.operators.SPROperator" tree="@Tree" weight="10.0" rootAttachLambda="1.0" probCoalAttach="0.5"/>
+        <operator id="Operator4" spec="pitchfork.operators.UniformOperator" tree="@Tree" weight="10.0"/>
+        <operator id="Operator5" spec="pitchfork.operators.ExchangeOperator" tree="@Tree" weight="10.0"/>
+        <operator id="Operator6" spec="pitchfork.operators.ExpandCollapseOperator" weight="10.0" rootAttachLambda="1.0" tree="@Tree"/>
+
+        <operator id="popSizesScaler" spec="kernel.BactrianScaleOperator" parameter="@bPopSizes" scaleFactor="0.9" weight="15.0"/>
+        <operator id="alphaScaler" spec="kernel.BactrianScaleOperator" parameter="@alpha" scaleFactor="0.9" weight="6.0"/>
+        <operator id="groupSizesDelta" spec="operator.kernel.BactrianDeltaExchangeOperator" integer="true" weight="6.0">
+            <intparameter idref="bGroupSizes"/>
+        </operator>
+        <operator id="gammaShapeScaler" spec="AdaptableOperatorSampler" weight="0.05">
+            <parameter idref="gammaShape"/>
+            <operator id="AVMNOperator" spec="kernel.AdaptableVarianceMultivariateNormalOperator" allowNonsense="true" beta="0.05" burnin="400" initial="800" weight="0.1">
+                <transformations id="AVMNSumTransform" spec="operator.kernel.Transform$LogConstrainedSumTransform"/>
+                <transformations id="AVMNLogTransform" spec="operator.kernel.Transform$LogTransform">
+                    <f idref="gammaShape"/>
+                </transformations>
+                <transformations id="AVMNNoTransform" spec="operator.kernel.Transform$NoTransform">
+                    <f idref="Tree"/>
+                </transformations>
+            </operator>
+            <operator id="gammaShapeScalerX" spec="kernel.BactrianScaleOperator" parameter="@gammaShape" scaleFactor="0.5" upper="10.0" weight="0.1"/>
+        </operator>
+
+        <logger id="tracelog" spec="Logger" fileName="/home/philipp/Documents/MasterThesis/Ebola_testset/ebola_kailahun.log" logEvery="10000" model="@posterior" sanitiseHeaders="true" sort="smart">
+            <!--    <logger id="tracelog" spec="Logger" fileName="example_skyline_function_4.log" logEvery="10000" model="@posterior" sanitiseHeaders="true" sort="smart"> -->
+            <log idref="posterior"/>
+            <!--        <log idref="likelihood"/>  -->
+            <log idref="prior"/>
+            <log idref="alpha"/>
+            <log idref="bGroupSizes"/>
+            <log spec="pitchfork.util.PolytomyStatsLogger" tree="@Tree" maxOrder="5"/>
+            <!--        <log idref="treeLikelihood.simulated_alignment"/>  -->
+            <!--        <log idref="treePrior"/> -->
+            <log id="TreeHeight" spec="beast.base.evolution.tree.TreeStatLogger" tree="@Tree"/>
+            <log idref="BayesianSkyline"/>
+            <log spec="pitchfork.models.BetaSkylineLogger" skylineDistribution="@BayesianSkyline" gridSize="101"/>
+            <!--        <log idref="gammaShape.s:simulated_alignment"/> -->
+        </logger>
+        <logger id="screenlog" spec="Logger" logEvery="10000">
+            <log idref="posterior"/>
+            <!--        <log idref="likelihood"/> -->
+            <log idref="prior"/>
+        </logger>
+        <logger id="treelog" spec="Logger" fileName="/home/philipp/Documents/MasterThesis/Ebola_testset/ebola_kailahun.trees" logEvery="2000" mode="tree">
+            <!--    <logger id="treelog.t:simulated_alignment" spec="Logger" fileName="example_skyline_function_4.trees" logEvery="2000" mode="tree">  -->
+            <log id="TreeWithMetaDataLogger" spec="beast.base.evolution.TreeWithMetaDataLogger" tree="@Tree"/>
+        </logger>
+    </run>
+
+</beast>
