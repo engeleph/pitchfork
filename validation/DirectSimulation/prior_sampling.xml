@@ -1,0 +1,188 @@
+<beast beautitemplate='Standard' beautistatus='' namespace="pitchfork.models.BetaSkylineDistribution:beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.base.evolution.alignment:beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood" required="BEAST.base v2.7.5" version="2.7">
+
+    <alignment id="simulated_alignment" spec='feast.fileio.AlignmentFromNexus' fileName="/home/philipp/Documents/MasterThesis/beast_and_friends/pitchfork/validation/DirectSimulation/popFunction1/alpha_1.2/Realisation1/simulated_alignment.nexus"/>
+
+    <!--    <taxa spec="beast.base.evolution.alignment.TaxonSet" id="taxonSet">
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t1"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t2"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t3"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t4"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t5"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t6"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t7"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t8"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t9"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t10"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t11"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t12"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t13"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t14"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t15"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t16"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t17"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t18"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t19"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t20"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t21"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t22"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t23"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t24"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t25"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t26"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t27"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t28"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t29"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t30"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t31"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t32"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t33"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t34"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t35"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t36"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t37"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t38"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t39"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t40"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t41"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t42"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t43"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t44"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t45"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t46"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t47"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t48"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t49"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t50"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t51"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t52"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t53"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t54"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t55"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t56"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t57"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t58"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t59"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t60"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t61"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t62"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t63"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t64"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t65"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t66"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t67"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t68"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t69"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t70"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t71"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t72"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t73"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t74"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t75"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t76"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t77"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t78"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t79"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t80"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t81"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t82"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t83"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t84"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t85"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t86"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t87"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t88"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t89"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t90"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t91"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t92"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t93"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t94"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t95"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t96"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t97"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t98"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t99"/>
+            <taxon spec="beast.base.evolution.alignment.Taxon" id="t100"/>
+        </taxa>  -->
+
+    <map name="Uniform" >beast.base.inference.distribution.Uniform</map>
+    <map name="Exponential" >beast.base.inference.distribution.Exponential</map>
+    <map name="LogNormal" >beast.base.inference.distribution.LogNormalDistributionModel</map>
+    <map name="Normal" >beast.base.inference.distribution.Normal</map>
+    <map name="Beta" >beast.base.inference.distribution.Beta</map>
+    <map name="Gamma" >beast.base.inference.distribution.Gamma</map>
+    <map name="LaplaceDistribution" >beast.base.inference.distribution.LaplaceDistribution</map>
+    <map name="prior" >beast.base.inference.distribution.Prior</map>
+    <map name="InverseGamma" >beast.base.inference.distribution.InverseGamma</map>
+    <map name="OneOnX" >beast.base.inference.distribution.OneOnX</map>
+
+    <run id="mcmc" spec="MCMC" chainLength="10000000">
+        <state id="state" spec="State" storeEvery="1000">
+            <parameter id="bPopSizes.t:simulated_alignment" spec="parameter.RealParameter" dimension="1" lower="0.0" name="stateNode">1.0</parameter>
+    <!--        <parameter id="bGroupSizes.t:simulated_alignment" spec="parameter.IntegerParameter" dimension="5" lower="1" name="stateNode">20</parameter> -->
+            <parameter id="alpha:simulated_alignment" spec="parameter.RealParameter" lower="1" upper="2" name="stateNode">1.5</parameter>
+            <tree id="Tree.t:simulated_alignment" spec="beast.base.evolution.tree.Tree" name="stateNode">
+                <taxonset id="taxonSet" spec="TaxonSet">
+                    <alignment idref="simulated_alignment"/>
+                </taxonset>
+            </tree>
+        </state>
+
+        <init id="RandomTree.t:simulated_alignment" spec="RandomTree" estimate="false" initial="@Tree.t:simulated_alignment" taxa="@simulated_alignment">
+            <populationModel id="ConstantPopulation0.t:simulated_alignment" spec="ConstantPopulation">
+                <parameter id="randomPopSize.t:simulated_alignment" spec="parameter.RealParameter" name="popSize">1.0</parameter>
+            </populationModel>
+        </init>
+
+        <distribution spec="CompoundDistribution" id="posterior">
+            <distribution id="prior" spec="CompoundDistribution">
+        <!--        <distribution id="BayesianSkyline.t:simulated_alignment" spec="pitchfork.models.BetaSkylineDistributionVersion1" groupSizes="@bGroupSizes.t:simulated_alignment" skylinePopulations="@bPopSizes.t:simulated_alignment">
+                    <model id="beta-model" spec="pitchfork.models.BetaCoalescentModel" taxonSet="@taxonSet" alpha="@alpha:simulated_alignment"/>
+                    <collapsedTreeIntervals id="BSPTreeIntervals.t:simulated_alignment" spec="pitchfork.models.CollapsedTreeIntervals" tree="@Tree.t:simulated_alignment"/>
+                </distribution> -->
+                <distribution id="BayesianSkyline.t:simulated_alignment" spec="pitchfork.models.BetaCoalescentDistribution">
+                    <populationFunction spec="beast.base.evolution.tree.coalescent.ConstantPopulation" popSize="@bPopSizes.t:simulated_alignment"/>
+                    <model id="beta-model" spec="pitchfork.models.BetaCoalescentModel" taxonSet="@taxonSet" alpha="@alpha:simulated_alignment"/>
+                    <collapsedTreeIntervals id="BSPTreeIntervals.t:simulated_alignment" spec="pitchfork.models.CollapsedTreeIntervals" tree="@Tree.t:simulated_alignment"/>
+                </distribution>
+                <distribution id="MarkovChainedPopSizes.t:simulated_alignment" spec="distribution.MarkovChainDistribution" parameter="@bPopSizes.t:simulated_alignment" initialMean="1.0"/>
+                <distribution spec="beast.base.inference.distribution.Prior" x="@bPopSizes.t:simulated_alignment">
+                    <distr spec="beast.base.inference.distribution.Exponential" mean="1"/>
+                </distribution>
+                <distribution spec="beast.base.inference.distribution.Prior" x="@alpha:simulated_alignment">
+                    <distr spec="beast.base.inference.distribution.Uniform" lower="1" upper="2"/>
+                </distribution>
+            </distribution>
+        </distribution>
+
+        <operator id="Operator1" spec="pitchfork.operators.ScaleOperator" scaleFactor="0.5" tree="@Tree.t:simulated_alignment" weight="15.0"/>
+        <operator id="Operator2" spec="pitchfork.operators.ScaleOperator" rootOnly="true" scaleFactor="0.5" tree="@Tree.t:simulated_alignment" weight="5.0"/>
+        <operator id="Operator3" spec="pitchfork.operators.SPROperator" tree="@Tree.t:simulated_alignment" weight="15.0" rootAttachLambda="1.0" probCoalAttach="0.5"/>
+        <operator id="Operator4" spec="pitchfork.operators.UniformOperator" tree="@Tree.t:simulated_alignment" weight="10.0"/>
+        <operator id="Operator5" spec="pitchfork.operators.ExchangeOperator" tree="@Tree.t:simulated_alignment" weight="10.0"/>
+        <operator id="Operator6" spec="pitchfork.operators.ExpandCollapseOperator" weight="10.0" rootAttachLambda="1.0" tree="@Tree.t:simulated_alignment"/>
+
+        <operator id="popSizesScaler.t:simulated_alignment" spec="ScaleOperator" parameter="@bPopSizes.t:simulated_alignment" scaleFactor="0.5" weight="15.0"/>
+        <operator id="alphaScaler:simulated_alignment" spec="ScaleOperator" parameter="@alpha:simulated_alignment" scaleFactor="0.5" weight="15.0" />
+    <!--    <operator id="groupSizesDelta.t:simulated_alignment" spec="operator.kernel.BactrianDeltaExchangeOperator" integer="true" weight="8.0">
+            <intparameter idref="bGroupSizes.t:simulated_alignment"/>
+        </operator>  -->
+
+        <logger id="tracelog" spec="Logger" fileName="/home/philipp/Documents/MasterThesis/Simulations/prior_sampling/prior_sampling.log" logEvery="100" model="@posterior" sanitiseHeaders="true" sort="smart">
+            <log idref="posterior"/>
+            <log idref="prior"/>
+            <log idref="alpha:simulated_alignment"/>
+    <!--        <log idref="bGroupSizes.t:simulated_alignment"/> -->
+            <log idref="bPopSizes.t:simulated_alignment"/>
+            <log spec="pitchfork.util.PolytomyStatsLogger" tree="@Tree.t:simulated_alignment" maxOrder="5"/>
+            <log id="TreeHeight.t:simulated_alignment" spec="beast.base.evolution.tree.TreeStatLogger" tree="@Tree.t:simulated_alignment"/>
+        </logger>
+   <!--     <logger id="treelog.t:simulated_alignment" spec="Logger" fileName="/home/philipp/Documents/MasterThesis/Simulations/prior_sampling/prior_sampling.trees" logEvery="2000" mode="tree">
+            <log id="TreeWithMetaDataLogger.t:simulated_alignment" spec="beast.base.evolution.TreeWithMetaDataLogger" tree="@Tree.t:simulated_alignment"/>
+        </logger> -->
+        <logger id="screenlog" spec="Logger" logEvery="1000">
+            <log idref="posterior"/>
+            <log idref="prior"/>
+        </logger>
+    </run>
+</beast>
