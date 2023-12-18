@@ -17,9 +17,9 @@
 
     <run id="mcmc" spec="MCMC" chainLength="100000">
         <state id="state" spec="State" storeEvery="1000">
-            <parameter id="bPopSizes.t:simulated_alignment" spec="parameter.RealParameter" dimension="5" lower="0.0" name="stateNode">1.0</parameter>
-            <parameter id="bGroupSizes.t:simulated_alignment" spec="parameter.IntegerParameter" dimension="5" lower="1" name="stateNode">20</parameter>
-            <parameter id="alpha:simulated_alignment" spec="parameter.RealParameter" lower="1" upper="2" name="stateNode">1.5</parameter>
+            <stateNode id="bPopSizes.t:simulated_alignment" spec="parameter.RealParameter" dimension="5" lower="0.0" value="1.0"/>
+            <stateNode id="bGroupSizes.t:simulated_alignment" spec="parameter.IntegerParameter" dimension="5" lower="1" value="20"/>
+            <stateNode id="alpha:simulated_alignment" spec="parameter.RealParameter" lower="1" upper="2" value="1.5"/>
     <!--        <parameter id="clockRate.c:simulated_alignment" spec="parameter.RealParameter" estimate="false" lower="0.0" name="stateNode">7.9E-4</parameter> -->
     <!--        <tree id="Tree.t:simulated_alignment" spec="beast.base.evolution.tree.Tree" name="stateNode">
                 <taxonset id="taxonSet" spec="TaxonSet">
@@ -40,7 +40,7 @@
                     <model id="beta-model" spec="pitchfork.models.BetaCoalescentModel" taxonSet="@taxonSet" alpha="@alpha:simulated_alignment"/>
                     <collapsedTreeIntervals id="BSPTreeIntervals.t:simulated_alignment" spec="pitchfork.models.CollapsedTreeIntervals" tree="@Tree.t:simulated_alignment"/>
                 </distribution>
-                <distribution id="MarkovChainedPopSizes.t:simulated_alignment" spec="distribution.MarkovChainDistribution" jeffreys="false" parameter="@bPopSizes.t:simulated_alignment" shape="1.0"/>
+                <distribution id="MarkovChainedPopSizes.t:simulated_alignment" spec="distribution.MarkovChainDistribution" parameter="@bPopSizes.t:simulated_alignment" initialMean="1"/>
                 <distribution spec="beast.base.inference.distribution.Prior" x="@alpha:simulated_alignment">
                     <distr spec="beast.base.inference.distribution.Uniform" lower="1" upper="2"/>
                 </distribution>
@@ -61,9 +61,9 @@
         <operator id="Operator5" spec="pitchfork.operators.ExchangeOperator" tree="@Tree.t:simulated_alignment" weight="10.0"/>
         <operator id="Operator6" spec="pitchfork.operators.ExpandCollapseOperator" weight="10.0" rootAttachLambda="1.0" tree="@Tree.t:simulated_alignment"/>  -->
 
-        <operator id="popSizesScaler.t:simulated_alignment" spec="ScaleOperator" parameter="@bPopSizes.t:simulated_alignment" scaleFactor="0.6" weight="15.0"/>
-        <operator id="alphaScaler:simulated_alignment" spec="ScaleOperator" parameter="@alpha:simulated_alignment" scaleFactor="0.8" weight="15.0" />
-        <operator id="groupSizesDelta.t:simulated_alignment" spec="operator.kernel.BactrianDeltaExchangeOperator" integer="true" weight="10.0">
+        <operator id="popSizesScaler.t:simulated_alignment" spec="ScaleOperator" parameter="@bPopSizes.t:simulated_alignment" scaleFactor="0.5" weight="20.0"/>
+        <operator id="alphaScaler:simulated_alignment" spec="ScaleOperator" parameter="@alpha:simulated_alignment" scaleFactor="0.5" weight="20.0" />
+        <operator id="groupSizesDelta.t:simulated_alignment" spec="operator.kernel.BactrianDeltaExchangeOperator" integer="true" weight="15.0">
             <intparameter idref="bGroupSizes.t:simulated_alignment"/>
         </operator>
 
