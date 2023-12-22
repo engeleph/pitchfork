@@ -44,39 +44,48 @@ public class BetaSkylineDistributionVersion3 extends AbstractBetaSkylineDistribu
 
         double t = 0;
         double N = skylinePopulationsInput.get().getValue(0);
-        //int seenCoalescentEvents = 0;
-        double dt_track = 0;                                        // this variable is first dt after every round and then t_update is deducted until dt_track < t_update
-        double t_update = T/populationSizes.getDimension();                                     //this variable defines the length of the time intervals
-        int counter = 0;                                             // counter for groups
-        double t_rest = 0;      //this variable is needed that we don't use dt_track after the while loop AND again in the next for loop round
+
+        double dt_track = 0;                                                           // this variable is first dt after every round and then t_update is deducted until dt_track < t_update
+        double t_update = T/populationSizes.getDimension();                            //this variable defines the length of the time intervals
+        int counter = 0;                                                               // counter for groups
+        double t_rest = 0;                                                             //this variable is needed that we don't use dt_track after the while loop AND again in the next for loop round
+        boolean update = false;
 
         for (int i = 0; i < collapsedTreeIntervals.getIntervalCount(); i++) {
             // Get interval details
             double dt = collapsedTreeIntervals.getInterval(i);
             dt_track += dt;
+            //System.out.print(collapsedTreeIntervals.getInterval(i));
 
             int n = collapsedTreeIntervals.getLineageCount(i);
             t += dt;
             //System.out.print(t + "\t");
 
-            while(dt_track >= t_update && counter < skylinePopulationsInput.get().getDimension()-1 ){
+            while(dt_track >= t_update && counter < skylinePopulationsInput.get().getDimension()-1){
                 logP += -betaCoalescentModel.getTotalCoalRate(n)*(t_update-t_rest)/N;  // here we calculate the logP of the waiting time for the pre-defined interval t_update as long dt_track is bigger than t_update
-                dt_track -= t_update;   // in the first round of the while loop we need to update ealier because there is still some dt_track to deduct from the last round
-                t_rest = 0;           //now t_rest should be set to 0 again
-                //if(dt_track>=2*t_update | t<T) {
+                dt_track -= t_update;                                                  // in the first round of the while loop we need to update earlier because there is still some dt_track to deduct from the last round
+                t_rest = 0;                                                            //now t_rest should be set to 0 again
+
                 counter += 1;
                 N = skylinePopulationsInput.get().getValue(counter);
-                //}
+                update = true;
             }
 
             t_rest = dt_track;
-            logP += -betaCoalescentModel.getTotalCoalRate(n)*t_rest/N;      // here we calculate the logP for the time interval which is smaller or equal than t_update
+
+            if (update) {
+                logP += -betaCoalescentModel.getTotalCoalRate(n) * t_rest / N;                 // here we calculate the logP for the time interval which is smaller or equal than t_update
+                update = false;
+            }else{
+                logP += -betaCoalescentModel.getTotalCoalRate(n) * dt / N;
+            }
+
 
             if (collapsedTreeIntervals.getIntervalType(i) == IntervalType.COALESCENT) {
                 // Beta-coalescent event contribution
 
                 int k = collapsedTreeIntervals.getCoalescentEvents(i)+1;
-                logP += betaCoalescentModel.getLogLambda(n, k) + Binomial.logChoose(n, k) - Math.log(N);
+                logP += betaCoalescentModel.getLogLambda(n, k) - Math.log(N);          // + Binomial.logChoose(n, k)
             }
         }
         return logP;
@@ -110,12 +119,10 @@ public class BetaSkylineDistributionVersion3 extends AbstractBetaSkylineDistribu
                 // Increment time
                 t_total += dt;
                 dt_track += dt;
-                while(dt_track > t_update && group < skylinePopulationsInput.get().getDimension()-1){
+                while(dt_track >= t_update && group < skylinePopulationsInput.get().getDimension()-1){
                     dt_track -= t_update;
-                    //if(dt_track>=2*t_update | t_total<T) {
                     group += 1;
                     N = skylinePopulationsInput.get().getValue(group);
-                    //}
                 }
 
                 if (i == (collapsedTreeIntervals.getIntervalCount()-1)) {  //this if statement ends while loop when we reach the root of the tree
