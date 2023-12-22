@@ -33,7 +33,7 @@
 
         <distribution spec="CompoundDistribution" id="posterior">
             <distribution id="prior" spec="CompoundDistribution">
-                <distribution id="BayesianSkyline.t:simulated_alignment" spec="pitchfork.models.BetaSkylineDistributionVersion2" groupSizes="@bGroupSizes.t:simulated_alignment" skylinePopulations="@bPopSizes.t:simulated_alignment">
+                <distribution id="BayesianSkyline.t:simulated_alignment" spec="pitchfork.models.BetaSkylineDistributionVersion$(version)" groupSizes="@bGroupSizes.t:simulated_alignment" skylinePopulations="@bPopSizes.t:simulated_alignment">
                     <model id="beta-model" spec="pitchfork.models.BetaCoalescentModel" taxonSet="@taxonSet" alpha="@alpha:simulated_alignment"/>
                     <collapsedTreeIntervals id="BSPTreeIntervals.t:simulated_alignment" spec="pitchfork.models.CollapsedTreeIntervals" tree="@Tree.t:simulated_alignment"/>
                 </distribution>
@@ -62,7 +62,7 @@
             <intparameter idref="bGroupSizes.t:simulated_alignment"/>
         </operator>
 
-        <logger id="tracelog" spec="Logger" fileName="/home/philipp/Documents/MasterThesis/Simulations/prior_sampling/prior_sampling.log" logEvery="100" model="@posterior" sanitiseHeaders="true" sort="smart">
+        <logger id="tracelog" spec="Logger" fileName="/home/philipp/Documents/MasterThesis/Simulations/prior_sampling/version_$(version)/prior_sampling.log" logEvery="100" model="@posterior" sanitiseHeaders="true" sort="smart">
             <log idref="posterior"/>
             <log idref="prior"/>
             <log idref="alpha:simulated_alignment"/>
@@ -71,9 +71,9 @@
             <log spec="pitchfork.util.PolytomyStatsLogger" tree="@Tree.t:simulated_alignment" maxOrder="5"/>
             <log id="TreeHeight.t:simulated_alignment" spec="beast.base.evolution.tree.TreeStatLogger" tree="@Tree.t:simulated_alignment"/>
         </logger>
-   <!--     <logger id="treelog.t:simulated_alignment" spec="Logger" fileName="/home/philipp/Documents/MasterThesis/Simulations/prior_sampling/prior_sampling.trees" logEvery="2000" mode="tree">
+        <logger id="treelog.t:simulated_alignment" spec="Logger" fileName="/home/philipp/Documents/MasterThesis/Simulations/prior_sampling/version_$(version)/prior_sampling.trees" logEvery="2000" mode="tree">
             <log id="TreeWithMetaDataLogger.t:simulated_alignment" spec="beast.base.evolution.TreeWithMetaDataLogger" tree="@Tree.t:simulated_alignment"/>
-        </logger> -->
+        </logger>
         <logger id="screenlog" spec="Logger" logEvery="10000">
             <log idref="posterior"/>
             <log idref="prior"/>
